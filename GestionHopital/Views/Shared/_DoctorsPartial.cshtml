@@ -1,0 +1,17 @@
+﻿@model List<Doctor>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var doctor in Model)
+        {
+            <tr>
+                <td>@doctor.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>
