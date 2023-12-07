@@ -1,0 +1,63 @@
+﻿@model GestionHopital.Models.Patient
+
+@{
+    ViewData["Title"] = "DetailsPatient";
+}
+
+<h1 class="text-primary">DetailsPatient</h1>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Patient Details</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.PatientID)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PatientID)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Phone)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Phone)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Address)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.BirthDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.BirthDate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Gender)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Gender)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.LoginID)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.LoginID)
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<div class="mt-3">
+    @Html.ActionLink("Edit", "EditPatient", new { id = Model.PatientID }, new { @class = "btn btn-primary" }) |
+    <a asp-action="GetPatient" class="btn btn-secondary">Back to List</a>
+</div>

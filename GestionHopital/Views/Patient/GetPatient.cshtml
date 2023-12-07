@@ -1,19 +1,65 @@
-﻿<!-- Ajoutez une colonne pour afficher les anciennes valeurs -->
-<th scope="col">Anciennes Valeurs</th>
+﻿<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
 
-@foreach (var patient in Model)
-{
-    <tr>
-        <td>@patient.PatientID</td>
-        <td>@patient.Name</td>
-        <td>@patient.Phone</td>
-        <td>@patient.Address</td>
-        <td>@patient.BirthDate.ToString("dd/MM/yyyy")</td>
-        <td>@patient.Gender</td>
-        <td>@Html.ActionLink("Edit","EditPatient",new{PatientID =patient.PatientID})</td>
-        <td>@Html.ActionLink("Delete","DeletePatient",new{id =patient.PatientID})</td>
+    th, td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
 
-        <!-- Ajoutez une colonne avec un lien vers les anciennes valeurs -->
-        <td>@Html.ActionLink("Anciennes Valeurs", "GetPatient", new { id = patient.PatientID })</td>
-    </tr>
-}
+    th {
+        background-color: #3498db;
+        color: white;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    a {
+        color: #3498db;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<table>
+    <thead>
+        <tr>
+            <th scope="col">Patient ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Address</th>
+            <th scope="col">Birth Date</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var patient in Model)
+        {
+            <tr>
+                
+                <td>@patient.PatientID</td>
+                <td>@patient.Name</td>
+                <td>@patient.Phone</td>
+                <td>@patient.Address</td>
+                <td>@patient.BirthDate.ToString("dd/MM/yyyy")</td>
+                <td>@patient.Gender</td>
+                <td>@Html.ActionLink("Edit", "EditPatient", new { id= patient.PatientID })</td>
+                <td>@Html.ActionLink("Delete", "DeletePatient", new { id = patient.PatientID })</td>
+                <td>@Html.ActionLink("Details", "DetailsPatient", new { id = patient.PatientID })</td>
+                
+            </tr>
+        }
+    </tbody>
+</table>

@@ -29,15 +29,15 @@
         [ForeignKey("Department")]
         public int DeptNo { get; set; }
 
-        [Required(ErrorMessage = "Charges Per Visit is required.")]
-        public float Charges_Per_Visit { get; set; }
+        //[Required(ErrorMessage = "Charges Per Visit is required.")]
+        //public float Charges_Per_Visit { get; set; }
 
-        public float? MonthlySalary { get; set; }
+        //public float? MonthlySalary { get; set; }
 
         public float? ReputeIndex { get; set; }
 
-        [Required(ErrorMessage = "Number of Patients Treated is required.")]
-        public int Patients_Treated { get; set; }
+        //[Required(ErrorMessage = "Number of Patients Treated is required.")]
+        //public int Patients_Treated { get; set; }
 
         [Required(ErrorMessage = "Qualification is required.")]
         [StringLength(50, ErrorMessage = "Qualification length can't be more than 50 characters.")]
@@ -51,6 +51,7 @@
         [Required(ErrorMessage = "Status is required.")]
         public int Status { get; set; }
 
+        public string img { get; set; }
         // Navigation property for Department
         public virtual Department Department { get; set; }
     }

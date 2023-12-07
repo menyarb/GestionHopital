@@ -1,0 +1,73 @@
+﻿@model IEnumerable<GestionHopital.Models.Appointment>
+
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    th {
+        background-color: #3498db;
+        color: white;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    a {
+        color: #3498db;
+        text-decoration: none;
+    }
+
+        a:hover {
+            text-decoration: underline;
+        }
+</style>
+
+<table>
+    <thead>
+        <tr>
+            <th scope="col">Appointment ID</th>
+            <th scope="col">Doctor ID</th>
+            <th scope="col">Patient ID</th>
+            <th scope="col">Date</th>
+            <th scope="col">Status</th>
+            <th scope="col">Bill Amount</th>
+            <th scope="col">Bill Status</th>
+            <th scope="col">Disease</th>
+            <th scope="col">Progress</th>
+            <th scope="col">Prescription</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+            <th scope="col">Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var appointment in Model)
+        {
+            <tr>
+                <td>@appointment.AppointID</td>
+                <td>@appointment.DoctorID</td>
+                <td>@appointment.PatientID</td>
+                <td>@appointment.Date.ToString("dd/MM/yyyy")</td>
+                <td>@appointment.Appointment_Status</td>
+                <td>@appointment.Bill_Amount</td>
+                <td>@appointment.Bill_Status</td>
+                <td>@appointment.Disease</td>
+                <td>@appointment.Progress</td>
+                <td>@appointment.Prescription</td>
+                <td>@Html.ActionLink("Edit", "EditAppointment", new { id = appointment.AppointID })</td>
+                <td>@Html.ActionLink("Delete", "DeleteAppointment", new { id = appointment.AppointID })</td>
+                <td>@Html.ActionLink("Details", "DetailsAppointment", new { id = appointment.AppointID })</td>
+            </tr>
+        }
+    </tbody>
+</table>

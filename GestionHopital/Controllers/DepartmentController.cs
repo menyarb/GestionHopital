@@ -1,92 +1,95 @@
 ﻿using GestionHopital.data;
+using GestionHopital.data;
 using GestionHopital.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Hosting; // Add this for IWebHostEnvironment
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace GestionHopital.Controllers
 {
     public class DepartmentController : Controller
     {
-        public readonly HopitalDbContext _db;
-        public DepartmentController(HopitalDbContext _db) {
-        this._db = _db;
+        private readonly HopitalDbContext _db;
+        private readonly IWebHostEnvironment _hostingEnvironment; // Add this
+
+        public DepartmentController(HopitalDbContext db, IWebHostEnvironment hostingEnvironment)
+        {
+            _db = db;
+            _hostingEnvironment = hostingEnvironment; // Initialize the hosting environment
         }
-        // GET: DepartmentController
-        
 
-
-        // GET: DepartmentController/Details/5
-        public ActionResult Details(int id)
+        // Liste des Patients
+        public ActionResult DepartmentPatient()
+        {
+            var data = _db.Departments.ToList();
+            return View(data);
+        }
+        public IActionResult Index()
         {
             return View();
         }
-        public ActionResult Index()
-        {
-            List<Department> listDepartemnt = _db.Departments.ToList();
-            return View(listDepartemnt);
-        }
-
-        // GET: DepartmentController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: DepartmentController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: DepartmentController/Edit/5
-        public ActionResult Edit(int id)
+        [HttpGet]
+         public ActionResult CreateDepartment()
         {
             return View();
         }
 
-        // POST: DepartmentController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+    
+        public ActionResult CreateDepartment(Department dep, IFormFile img)
         {
-            try
+            if (dep == null)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("GetDepartment");
             }
-            catch
+
+            // Check if an image was uploaded
+            if (img != null && img.Length > 0)
             {
-                return View();
+                // Validate the uploaded file
+                if (!img.ContentType.StartsWith("image/"))
+                {
+                    ModelState.AddModelError("img", "Invalid image format.");
+                    return View(dep);
+                }
+
+                // Generate a unique filename
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(img.FileName);
+
+                // Save the image to the desired folder
+                var destinationPath = Path.Combine(_hostingEnvironment.WebRootPath, "images", "departements", fileName);
+
+                using (var fileStream = new FileStream(destinationPath, FileMode.Create))
+                {
+                    img.CopyTo(fileStream);
+                }
+
+                // Set the 'img' property of the 'Department' object
+                dep.img = fileName;
             }
+            else
+            {
+                // If no image is uploaded, set a default value for the 'img' property
+                dep.img = "default_image.jpg"; // Replace with an appropriate default value
+            }
+
+            // Add the 'Department' object to the database
+            _db.Departments.Add(dep);
+            _db.SaveChanges();
+
+            return RedirectToAction("GetDepartment");
         }
 
-        // GET: DepartmentController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
 
-        // POST: DepartmentController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        [HttpGet]
+        // Liste des GetDepartment
+        public ActionResult GetDepartment()
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var data = _db.Departments.ToList();
+            return View(data);
         }
     }
 }

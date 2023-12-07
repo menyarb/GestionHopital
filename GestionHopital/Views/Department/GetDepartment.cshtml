@@ -1,0 +1,62 @@
+﻿@model List<Department>
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "Departments";
+}
+
+<!-- /.card -->
+<div class="row">
+    <div class="col-12" style="margin: 10px;">
+        <a href="#" class="btn btn-secondary">Cancel</a>
+        <input type="submit" value="Create new Department" class="btn btn-success float-right">
+    </div>
+</div>
+
+<!-- ... (previous HTML code) ... -->
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Department</h3>
+        </div>
+
+
+    <!-- /.card-header -->
+
+    <div class="card-body">
+        <table id="departmentTable" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Department Number</th>
+                    <th>Department Name</th>
+                    <th>Description</th>
+                    <th>Image</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var department in Model)
+                {
+                    <tr>
+                     
+                        <td>@department.DeptNo</td>
+                        <td>@department.DeptName</td>
+                        <td>@department.Description</td>
+                        <td>
+                            <img src="@Url.Content("~/images/departements/" + department.img)" alt="Department Image" />
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <!-- Add footer if needed -->
+            </tfoot>
+        </table>
+    </div>
+
+    <!-- /.card-body -->
+</div>
+<!-- /.card -->
+<!-- /.card -->
+
+
+

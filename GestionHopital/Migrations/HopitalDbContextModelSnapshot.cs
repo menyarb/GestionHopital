@@ -22,6 +22,37 @@ namespace GestionHopital.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("GestionHopital.Models.Admin", b =>
+                {
+                    b.Property<int>("AdminID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AdminID"), 1L, 1);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(12)
+                        .HasColumnType("nvarchar(12)");
+
+                    b.HasKey("AdminID");
+
+                    b.ToTable("Admins");
+                });
+
             modelBuilder.Entity("GestionHopital.Models.Appointment", b =>
                 {
                     b.Property<int>("AppointID")
@@ -115,9 +146,6 @@ namespace GestionHopital.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<float>("Charges_Per_Visit")
-                        .HasColumnType("real");
-
                     b.Property<int>("DeptNo")
                         .HasColumnType("int");
 
@@ -126,16 +154,10 @@ namespace GestionHopital.Migrations
                         .HasMaxLength(1)
                         .HasColumnType("nvarchar(1)");
 
-                    b.Property<float?>("MonthlySalary")
-                        .HasColumnType("real");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
-
-                    b.Property<int>("Patients_Treated")
-                        .HasColumnType("int");
 
                     b.Property<string>("Phone")
                         .IsRequired()
@@ -160,6 +182,10 @@ namespace GestionHopital.Migrations
 
                     b.Property<int?>("Work_Experience")
                         .HasColumnType("int");
+
+                    b.Property<string>("img")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("DoctorID");
 

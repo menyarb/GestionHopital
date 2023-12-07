@@ -1,0 +1,63 @@
+﻿@model GestionHopital.Models.Appointment
+
+@{
+    ViewData["Title"] = "CreateAppointment";
+}
+
+<h1>CreateAppointment</h1>
+
+<h4>Appointment</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateAppointment">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+           
+            
+           
+            <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Appointment_Status" class="control-label"></label>
+                <input asp-for="Appointment_Status" class="form-control" />
+                <span asp-validation-for="Appointment_Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bill_Amount" class="control-label"></label>
+                <input asp-for="Bill_Amount" class="form-control" />
+                <span asp-validation-for="Bill_Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bill_Status" class="control-label"></label>
+                <input asp-for="Bill_Status" class="form-control" />
+                <span asp-validation-for="Bill_Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Disease" class="control-label"></label>
+                <input asp-for="Disease" class="form-control" />
+                <span asp-validation-for="Disease" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Progress" class="control-label"></label>
+                <input asp-for="Progress" class="form-control" />
+                <span asp-validation-for="Progress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Prescription" class="control-label"></label>
+                <input asp-for="Prescription" class="form-control" />
+                <span asp-validation-for="Prescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

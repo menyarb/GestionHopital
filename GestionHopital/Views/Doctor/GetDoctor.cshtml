@@ -1,0 +1,82 @@
+﻿@model List<Doctor>
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "Doctor";
+}
+
+<!-- /.card -->
+<div class="row">
+    <div class="col-12" style="margin: 10px;">
+        <a href="#" class="btn btn-secondary">Cancel</a>
+        <input type="submit" value="Create new Doctor" class="btn btn-success float-right">
+    </div>
+</div>
+
+<!-- ... (previous HTML code) ... -->
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Doctor</h3>
+    </div>
+
+
+    <!-- /.card-header -->
+
+    <div class="card-body">
+        <table id="departmentTable" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>DoctorID</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>BirthDate</th>
+                    <th>Gender</th>
+                    <th>DeptNo</th>
+                    <th>Qualification</th>
+                    <th>Specialization</th>
+                    <th>Work_Experience</th>
+                    <th>Qualification</th>
+                    <th>Status</th>
+                    <th>Image</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var doctor in Model)
+                {
+                    <tr>
+
+                        <td>@doctor.DoctorID</td>
+                        <td>@doctor.Name</td>
+                        <td>@doctor.Phone</td>
+                        <td>@doctor.Address</td>
+                        <td>@doctor.BirthDate</td>
+                        <td>@doctor.Gender</td>
+                        <td>@doctor.DeptNo</td>
+                        <td>@doctor.Qualification</td>
+                        <td>@doctor.Specialization</td>
+                        <td>@doctor.Work_Experience</td>
+                        <td>@doctor.Status</td>
+                
+                        <td>
+                            <img src="@Url.Content("~/images/doctors/" + doctor.img)" alt="doctor Image" />
+                        </td>
+                        <td>@Html.ActionLink("Edit", "EditDoctor", new { id = doctor.DoctorID })</td>
+                        <td>@Html.ActionLink("Delete", "DeleteDoctor", new { id = doctor.DoctorID })</td>
+                        <td>@Html.ActionLink("Details", "DetailsDoctor", new { id = doctor.DoctorID })</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <!-- Add footer if needed -->
+            </tfoot>
+        </table>
+    </div>
+
+    <!-- /.card-body -->
+</div>
+<!-- /.card -->
+<!-- /.card -->
