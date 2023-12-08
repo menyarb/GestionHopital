@@ -23,7 +23,7 @@
     <!-- /.card-header -->
 
     <div class="card-body">
-        <table id="departmentTable" class="table table-bordered table-striped">
+        <table id="departmentTable" class="table table-responsive table-bordered table-striped">
             <thead>
                 <tr>
                     <th>DoctorID</th>
@@ -39,9 +39,7 @@
                     <th>Qualification</th>
                     <th>Status</th>
                     <th>Image</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                    <th>Details</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -55,18 +53,21 @@
                         <td>@doctor.Address</td>
                         <td>@doctor.BirthDate</td>
                         <td>@doctor.Gender</td>
-                        <td>@doctor.DeptNo</td>
+                        <td>@doctor.Department.DeptName</td>
                         <td>@doctor.Qualification</td>
                         <td>@doctor.Specialization</td>
                         <td>@doctor.Work_Experience</td>
                         <td>@doctor.Status</td>
-                
                         <td>
-                            <img src="@Url.Content("~/images/doctors/" + doctor.img)" alt="doctor Image" />
+                            <img width="100" height="100" src="@Url.Content("~/images/doctors/" + doctor.img)" alt="doctor Image" />
                         </td>
-                        <td>@Html.ActionLink("Edit", "EditDoctor", new { id = doctor.DoctorID })</td>
-                        <td>@Html.ActionLink("Delete", "DeleteDoctor", new { id = doctor.DoctorID })</td>
-                        <td>@Html.ActionLink("Details", "DetailsDoctor", new { id = doctor.DoctorID })</td>
+                        <td>@Html.ActionLink("Edit", "EditPatient", new { id = doctor.DoctorID })
+                            @Html.ActionLink("Delete", "DeletePatient", new { id = doctor.DoctorID })
+                            @Html.ActionLink("Details", "DetailsPatient", new { id = doctor.DoctorID })
+                        </td>
+                        
+        
+                    
                     </tr>
                 }
             </tbody>

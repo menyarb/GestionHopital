@@ -14,6 +14,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 namespace GestionHopital.Controllers
 {
     public class DoctorController : Controller
@@ -106,7 +107,7 @@ namespace GestionHopital.Controllers
         // Liste des GetDepartment
         public ActionResult GetDoctor()
         {
-            var data = _db.Doctors.ToList();
+            var data = _db.Doctors.Include(p=>p.Department).ToList();
             return View(data);
         }
     }
