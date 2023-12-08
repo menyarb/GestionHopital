@@ -8,7 +8,9 @@
 <div class="row">
     <div class="col-12" style="margin: 10px;">
         <a href="#" class="btn btn-secondary">Cancel</a>
-        <input type="submit" value="Create new Doctor" class="btn btn-success float-right">
+        <a asp-area="" asp-controller="Doctor" asp-action="CreateDoctor">
+        <input type="submit"  value="Create new Doctor" class="btn btn-success float-right">
+        </a>
     </div>
 </div>
 
@@ -34,9 +36,9 @@
                     <th>Gender</th>
                     <th>DeptNo</th>
                     <th>Qualification</th>
-                    <th>Specialization</th>
+                   
                     <th>Work_Experience</th>
-                    <th>Qualification</th>
+                    <th>Specialization</th>
                     <th>Status</th>
                     <th>Image</th>
                     <th>Actions</th>
@@ -55,8 +57,9 @@
                         <td>@doctor.Gender</td>
                         <td>@doctor.Department.DeptName</td>
                         <td>@doctor.Qualification</td>
-                        <td>@doctor.Specialization</td>
                         <td>@doctor.Work_Experience</td>
+                        <td>@doctor.Specialization</td>
+                     
                         <td>@doctor.Status</td>
                         <td>
                             <img width="100" height="100" src="@Url.Content("~/images/doctors/" + doctor.img)" alt="doctor Image" />

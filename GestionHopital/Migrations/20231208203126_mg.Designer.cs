@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestionHopital.Migrations
 {
     [DbContext(typeof(HopitalDbContext))]
-    [Migration("20231207130452_mg2")]
-    partial class mg2
+    [Migration("20231208203126_mg")]
+    partial class mg
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -217,6 +217,9 @@ namespace GestionHopital.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
+                    b.Property<int>("DoctorID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Gender")
                         .IsRequired()
                         .HasMaxLength(1)
@@ -241,6 +244,8 @@ namespace GestionHopital.Migrations
                         .HasColumnType("real");
 
                     b.HasKey("StaffID");
+
+                    b.HasIndex("DoctorID");
 
                     b.ToTable("OtherStaffs");
                 });
@@ -339,6 +344,17 @@ namespace GestionHopital.Migrations
                         .IsRequired();
 
                     b.Navigation("Department");
+                });
+
+            modelBuilder.Entity("GestionHopital.Models.OtherStaff", b =>
+                {
+                    b.HasOne("GestionHopital.Models.Doctor", "Doctor")
+                        .WithMany()
+                        .HasForeignKey("DoctorID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
                 });
 
             modelBuilder.Entity("GestionHopital.Models.Patient", b =>

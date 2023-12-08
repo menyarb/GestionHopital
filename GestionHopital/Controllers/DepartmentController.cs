@@ -1,13 +1,9 @@
 ﻿using GestionHopital.data;
-using GestionHopital.data;
+
 using GestionHopital.Models;
-using Microsoft.AspNetCore.Http;
+
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Hosting; // Add this for IWebHostEnvironment
-using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace GestionHopital.Controllers
 {

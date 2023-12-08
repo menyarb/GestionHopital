@@ -38,6 +38,14 @@ namespace GestionHopital.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<int?>("LoginID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -48,7 +56,13 @@ namespace GestionHopital.Migrations
                         .HasMaxLength(12)
                         .HasColumnType("nvarchar(12)");
 
+                    b.Property<string>("role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("AdminID");
+
+                    b.HasIndex("LoginID");
 
                     b.ToTable("Admins");
                 });
@@ -215,6 +229,14 @@ namespace GestionHopital.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
+                    b.Property<int>("DoctorID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
                     b.Property<string>("Gender")
                         .IsRequired()
                         .HasMaxLength(1)
@@ -224,6 +246,9 @@ namespace GestionHopital.Migrations
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
+
+                    b.Property<int?>("LoginID")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -238,7 +263,15 @@ namespace GestionHopital.Migrations
                     b.Property<float?>("Salary")
                         .HasColumnType("real");
 
+                    b.Property<string>("role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("StaffID");
+
+                    b.HasIndex("DoctorID");
+
+                    b.HasIndex("LoginID");
 
                     b.ToTable("OtherStaffs");
                 });
@@ -259,6 +292,11 @@ namespace GestionHopital.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
                     b.Property<string>("Gender")
                         .IsRequired()
                         .HasMaxLength(1)
@@ -276,6 +314,10 @@ namespace GestionHopital.Migrations
                         .IsRequired()
                         .HasMaxLength(12)
                         .HasColumnType("nvarchar(12)");
+
+                    b.Property<string>("role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("PatientID");
 
@@ -309,6 +351,15 @@ namespace GestionHopital.Migrations
                     b.ToTable("Logins");
                 });
 
+            modelBuilder.Entity("GestionHopital.Models.Admin", b =>
+                {
+                    b.HasOne("Login", "Login")
+                        .WithMany()
+                        .HasForeignKey("LoginID");
+
+                    b.Navigation("Login");
+                });
+
             modelBuilder.Entity("GestionHopital.Models.Appointment", b =>
                 {
                     b.HasOne("GestionHopital.Models.Doctor", "Doctor")
@@ -337,6 +388,23 @@ namespace GestionHopital.Migrations
                         .IsRequired();
 
                     b.Navigation("Department");
+                });
+
+            modelBuilder.Entity("GestionHopital.Models.OtherStaff", b =>
+                {
+                    b.HasOne("GestionHopital.Models.Doctor", "Doctor")
+                        .WithMany()
+                        .HasForeignKey("DoctorID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Login", "Login")
+                        .WithMany()
+                        .HasForeignKey("LoginID");
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Login");
                 });
 
             modelBuilder.Entity("GestionHopital.Models.Patient", b =>

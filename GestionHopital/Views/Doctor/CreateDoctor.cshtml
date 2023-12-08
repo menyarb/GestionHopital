@@ -36,7 +36,13 @@
                 </div>
                 <div class="form-group">
                     <label for="inputName" sp-for="Gender">Gender</label>
-                    <input type="text" id="inputName" class="form-control" sp-for="Gender">
+                    <select name="Gender" class="form-control" asp-for="Gender">
+                        <option value="" disabled>Select one</option>
+                       
+                            <option value="M">Male</option>
+                            <option value="F">Female</option>
+                        
+                    </select>
                 </div>
                 <div class="form-group">
                   

@@ -1,18 +1,6 @@
 ﻿using GestionHopital.data;
 using GestionHopital.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Hosting.Internal;
-using System.Runtime.Intrinsics.Arm;
-using GestionHopital.data;
-using GestionHopital.data;
-using GestionHopital.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Hosting; // Add this for IWebHostEnvironment
-using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 namespace GestionHopital.Controllers
@@ -91,13 +79,12 @@ namespace GestionHopital.Controllers
             doc.Phone = doc.Phone ?? "Default Phone";  // Replace with the actual logic or default value
                                                        // Set the 'Qualification' property of the 'Doctors' object
             doc.Qualification = "Some default qualification";
-            // Set the 'Gender' property of the 'Doctors' object
-            doc.Gender = "Some default gender";
+          
             // Set the 'Specialization' property of the 'Doctors' object
             doc.Specialization = "Some default specialization";  // Replace with the actual specialization from your form
 
             _db.Doctors.Add(doc);
-
+            _db.SaveChanges();
 
             return RedirectToAction("GetDoctor");
 
