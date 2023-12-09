@@ -151,7 +151,7 @@ namespace GestionHopital.Controllers
             else
             {
                 // If no image is uploaded, set a default value for the 'img' property
-                doc.img = "default_image.jpg"; // Replace with an appropriate default value
+                doc.img = DoctorObj.img ?? "default_image.jpg"; // Replace with an appropriate default value
             }
  
 
