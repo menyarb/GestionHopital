@@ -1,0 +1,93 @@
+﻿ @model GestionHopital.Models.Doctor
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+  
+}
+
+<h1 class="text-primary">DetailsDoctor</h1>
+
+<div class="card">
+    <div class="card-body" style="    padding: 3.25rem;">
+        <h4 class="card-title">Doctor Details</h4>
+        <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DoctorID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DoctorID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BirthDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BirthDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Department.DeptName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Department.DeptName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Qualification)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Qualification)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Specialization)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Specialization)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.img)
+            </dt>
+            <dd class="col-sm-10">
+                @if (!string.IsNullOrEmpty(Model.img))
+                {
+                    <img src="@Url.Content($"~/images/doctors/{Model.img}")" alt="Doctor Image" class="img-fluid" />
+                }
+                else
+                {
+                    <span>No image available</span>
+                }
+            </dd>
+    </dl>
+      
+        <div class="mt-3">
+            @Html.ActionLink("Edit", "EditDoctor", new { DoctorID = Model.DoctorID }, new { @class = "btn btn-primary" }) |
+            <a asp-action="GetDoctor" class="btn btn-secondary">Back to List</a>
+        </div>
+</div>

@@ -36,8 +36,7 @@
                     <th>Gender</th>
                     <th>DeptNo</th>
                     <th>Qualification</th>
-                   
-                    <th>Work_Experience</th>
+               
                     <th>Specialization</th>
                     <th>Status</th>
                     <th>Image</th>
@@ -57,16 +56,17 @@
                         <td>@doctor.Gender</td>
                         <td>@doctor.Department.DeptName</td>
                         <td>@doctor.Qualification</td>
-                        <td>@doctor.Work_Experience</td>
+                       
                         <td>@doctor.Specialization</td>
                      
                         <td>@doctor.Status</td>
                         <td>
                             <img width="100" height="100" src="@Url.Content("~/images/doctors/" + doctor.img)" alt="doctor Image" />
                         </td>
-                        <td>@Html.ActionLink("Edit", "EditPatient", new { id = doctor.DoctorID })
-                            @Html.ActionLink("Delete", "DeletePatient", new { id = doctor.DoctorID })
-                            @Html.ActionLink("Details", "DetailsPatient", new { id = doctor.DoctorID })
+                        <td>
+                            @Html.ActionLink("Edit", "EditDoctor", new { DoctorID = doctor.DoctorID })
+                            @Html.ActionLink("Delete", "DeleteDoctor", new { DoctorID = doctor.DoctorID })
+                            @Html.ActionLink("Details", "DetailsDoctor", new { DoctorID = doctor.DoctorID })
                         </td>
                         
         

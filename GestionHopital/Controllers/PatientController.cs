@@ -25,7 +25,7 @@ namespace GestionHopital.Controllers
         // Liste des Patients
         public ActionResult GetPatient()
         {
-            var data = _db.Patients.ToList();
+            var data = _db.users.Include(p=>p.role).ToList();
             return View(data);
         }
 
@@ -35,17 +35,36 @@ namespace GestionHopital.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public ActionResult RegisterPatient()
+        {
+            return View();
+        }
 
 
         [HttpPost]
-        public ActionResult CreatePatient(Patient pat)
+        public ActionResult CreatePatient(User pat)
         {
             if (pat == null)
             { return RedirectToAction("GetPatient"); }
-            _db.Patients.Add(pat);
+            pat.RoleId = _db.roles.FirstOrDefault(d => d.RoleName == "Patient").Id;
+            _db.users.Add(pat);
             _db.SaveChanges();
 
             return RedirectToAction("GetPatient");
+        }
+
+        [HttpPost]
+        public ActionResult RegisterPatient(User pat)
+        {
+            if (pat == null)
+            { return RedirectToAction("GetPatient"); }
+            pat.RoleId = _db.roles.FirstOrDefault(d => d.RoleName == "Patient").Id;
+            _db.users.Add(pat);
+            _db.SaveChanges();
+
+            return RedirectToAction("index", "Login"); // Replace "Account" with your actual controller name.
+
         }
 
 
@@ -55,7 +74,7 @@ namespace GestionHopital.Controllers
         public ActionResult EditPatient(int id)
         {
 
-            var patientObj = _db.Patients.Where(x => x.PatientID == id).FirstOrDefault();
+            var patientObj = _db.users.Where(x => x.Id == id).FirstOrDefault();
 
 
 
@@ -63,9 +82,9 @@ namespace GestionHopital.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditPatient(int id, Patient pat)
+        public ActionResult EditPatient(int id, User pat)
         {
-            var patientObj = _db.Patients.Where(x => x.PatientID == id).FirstOrDefault();
+            var patientObj = _db.users.Where(x => x.Id == id).FirstOrDefault();
 
 
 
@@ -75,12 +94,12 @@ namespace GestionHopital.Controllers
             patientObj.Address = pat.Address;
             patientObj.BirthDate = pat.BirthDate;
             patientObj.Gender = pat.Gender;
+            patientObj.Password = pat.Password;
 
 
             _db.SaveChanges();
 
-            // Vous pouvez rediriger vers une vue de confirmation ou une autre action si nécessaire
-            return RedirectToAction("GetPatient"); // Ou une autre action ou vue appropriée
+            return RedirectToAction("GetPatient"); 
         }
 
 
@@ -93,8 +112,8 @@ namespace GestionHopital.Controllers
 
         public ActionResult DeletePatient(int id)
         {
-            var Patobj = _db.Patients.Where(x => x.PatientID == id).FirstOrDefault();
-            _db.Patients.Remove(Patobj);
+            var Patobj = _db.users.Where(x => x.Id == id).FirstOrDefault();
+            _db.users.Remove(Patobj);
             _db.SaveChanges();
             return RedirectToAction("GetPatient");
         }
@@ -102,7 +121,7 @@ namespace GestionHopital.Controllers
 
         public ActionResult DetailsPatient(int id)
         {
-            var Patobj = _db.Patients.Where(x => x.PatientID == id).FirstOrDefault();
+            var Patobj = _db.users.Include(p=>p.role).Where(x => x.Id == id).FirstOrDefault();
 
 
 

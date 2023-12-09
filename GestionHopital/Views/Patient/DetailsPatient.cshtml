@@ -1,21 +1,21 @@
-﻿@model GestionHopital.Models.Patient
-
+﻿ @model GestionHopital.Models.User
 @{
-    ViewData["Title"] = "DetailsPatient";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "Departments";
 }
 
 <h1 class="text-primary">DetailsPatient</h1>
 
 <div class="card">
-    <div class="card-body">
+    <div class="card-body" style="    padding: 3.25rem;">
         <h4 class="card-title">Patient Details</h4>
         <hr />
         <dl class="row">
             <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.PatientID)
+                @Html.DisplayNameFor(model => model.Id)
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.PatientID)
+                @Html.DisplayFor(model => model.Id)
             </dd>
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.Name)
@@ -47,17 +47,13 @@
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Gender)
             </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.LoginID)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.LoginID)
-            </dd>
+            
         </dl>
     </div>
 </div>
 
 <div class="mt-3">
-    @Html.ActionLink("Edit", "EditPatient", new { id = Model.PatientID }, new { @class = "btn btn-primary" }) |
+    @Html.ActionLink("Edit", "EditPatient", new { id = Model.Id }, new { @class = "btn btn-primary" }) |
     <a asp-action="GetPatient" class="btn btn-secondary">Back to List</a>
 </div>
+ 

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestionHopital.Migrations
 {
     [DbContext(typeof(HopitalDbContext))]
-    [Migration("20231208213703_mg3")]
-    partial class mg3
+    [Migration("20231208235826_addThePasswordCol")]
+    partial class addThePasswordCol
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,51 +23,6 @@ namespace GestionHopital.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("GestionHopital.Models.Admin", b =>
-                {
-                    b.Property<int>("AdminID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AdminID"), 1L, 1);
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
-
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<int?>("LoginID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasMaxLength(12)
-                        .HasColumnType("nvarchar(12)");
-
-                    b.Property<string>("role")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("AdminID");
-
-                    b.HasIndex("LoginID");
-
-                    b.ToTable("Admins");
-                });
 
             modelBuilder.Entity("GestionHopital.Models.Appointment", b =>
                 {
@@ -218,14 +173,6 @@ namespace GestionHopital.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StaffID"), 1L, 1);
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<DateTime?>("BirthDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Designation")
                         .IsRequired()
                         .HasMaxLength(15)
@@ -234,57 +181,51 @@ namespace GestionHopital.Migrations
                     b.Property<int>("DoctorID")
                         .HasColumnType("int");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<string>("Gender")
-                        .IsRequired()
-                        .HasMaxLength(1)
-                        .HasColumnType("nvarchar(1)");
-
                     b.Property<string>("Highest_Qualification")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<int?>("LoginID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasMaxLength(12)
-                        .HasColumnType("nvarchar(12)");
-
                     b.Property<float?>("Salary")
                         .HasColumnType("real");
 
-                    b.Property<string>("role")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("StaffID");
 
                     b.HasIndex("DoctorID");
 
-                    b.HasIndex("LoginID");
+                    b.HasIndex("UserId");
 
                     b.ToTable("OtherStaffs");
                 });
 
-            modelBuilder.Entity("GestionHopital.Models.Patient", b =>
+            modelBuilder.Entity("GestionHopital.Models.Role", b =>
                 {
-                    b.Property<int>("PatientID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PatientID"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("roles");
+                });
+
+            modelBuilder.Entity("GestionHopital.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -304,62 +245,28 @@ namespace GestionHopital.Migrations
                         .HasMaxLength(1)
                         .HasColumnType("nvarchar(1)");
 
-                    b.Property<int?>("LoginID")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasMaxLength(12)
                         .HasColumnType("nvarchar(12)");
 
-                    b.Property<string>("role")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("PatientID");
-
-                    b.HasIndex("LoginID");
-
-                    b.ToTable("Patients");
-                });
-
-            modelBuilder.Entity("Login", b =>
-                {
-                    b.Property<int>("LoginID")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("RoleId")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LoginID"), 1L, 1);
+                    b.HasKey("Id");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                    b.HasIndex("RoleId");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
-
-                    b.HasKey("LoginID");
-
-                    b.ToTable("Logins");
-                });
-
-            modelBuilder.Entity("GestionHopital.Models.Admin", b =>
-                {
-                    b.HasOne("Login", "Login")
-                        .WithMany()
-                        .HasForeignKey("LoginID");
-
-                    b.Navigation("Login");
+                    b.ToTable("users");
                 });
 
             modelBuilder.Entity("GestionHopital.Models.Appointment", b =>
@@ -370,7 +277,7 @@ namespace GestionHopital.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GestionHopital.Models.Patient", "Patient")
+                    b.HasOne("GestionHopital.Models.User", "Patient")
                         .WithMany()
                         .HasForeignKey("PatientID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -400,22 +307,26 @@ namespace GestionHopital.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Login", "Login")
+                    b.HasOne("GestionHopital.Models.User", "user")
                         .WithMany()
-                        .HasForeignKey("LoginID");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Doctor");
 
-                    b.Navigation("Login");
+                    b.Navigation("user");
                 });
 
-            modelBuilder.Entity("GestionHopital.Models.Patient", b =>
+            modelBuilder.Entity("GestionHopital.Models.User", b =>
                 {
-                    b.HasOne("Login", "Login")
+                    b.HasOne("GestionHopital.Models.Role", "role")
                         .WithMany()
-                        .HasForeignKey("LoginID");
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Login");
+                    b.Navigation("role");
                 });
 #pragma warning restore 612, 618
         }

@@ -5,26 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GestionHopital.Migrations
 {
-    public partial class mg : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Admins",
-                columns: table => new
-                {
-                    AdminID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Admins", x => x.AdminID);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Departments",
                 columns: table => new
@@ -41,18 +25,16 @@ namespace GestionHopital.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Logins",
+                name: "roles",
                 columns: table => new
                 {
-                    LoginID = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    Type = table.Column<int>(type: "int", nullable: false)
+                    RoleName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Logins", x => x.LoginID);
+                    table.PrimaryKey("PK_roles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -86,52 +68,27 @@ namespace GestionHopital.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Patients",
+                name: "users",
                 columns: table => new
                 {
-                    PatientID = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false),
                     Address = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    Gender = table.Column<string>(type: "nvarchar(1)", maxLength: 1, nullable: false),
                     BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Gender = table.Column<string>(type: "nvarchar(1)", maxLength: 1, nullable: false),
-                    LoginID = table.Column<int>(type: "int", nullable: true)
+                    RoleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Patients", x => x.PatientID);
+                    table.PrimaryKey("PK_users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Patients_Logins_LoginID",
-                        column: x => x.LoginID,
-                        principalTable: "Logins",
-                        principalColumn: "LoginID");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "OtherStaffs",
-                columns: table => new
-                {
-                    StaffID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    Designation = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    Gender = table.Column<string>(type: "nvarchar(1)", maxLength: 1, nullable: false),
-                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Highest_Qualification = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    Salary = table.Column<float>(type: "real", nullable: true),
-                    DoctorID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OtherStaffs", x => x.StaffID);
-                    table.ForeignKey(
-                        name: "FK_OtherStaffs_Doctors_DoctorID",
-                        column: x => x.DoctorID,
-                        principalTable: "Doctors",
-                        principalColumn: "DoctorID",
+                        name: "FK_users_roles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "roles",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -161,10 +118,39 @@ namespace GestionHopital.Migrations
                         principalColumn: "DoctorID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Appointments_Patients_PatientID",
+                        name: "FK_Appointments_users_PatientID",
                         column: x => x.PatientID,
-                        principalTable: "Patients",
-                        principalColumn: "PatientID",
+                        principalTable: "users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OtherStaffs",
+                columns: table => new
+                {
+                    StaffID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Designation = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    Highest_Qualification = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Salary = table.Column<float>(type: "real", nullable: true),
+                    DoctorID = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OtherStaffs", x => x.StaffID);
+                    table.ForeignKey(
+                        name: "FK_OtherStaffs_Doctors_DoctorID",
+                        column: x => x.DoctorID,
+                        principalTable: "Doctors",
+                        principalColumn: "DoctorID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OtherStaffs_users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "users",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -189,16 +175,18 @@ namespace GestionHopital.Migrations
                 column: "DoctorID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Patients_LoginID",
-                table: "Patients",
-                column: "LoginID");
+                name: "IX_OtherStaffs_UserId",
+                table: "OtherStaffs",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_users_RoleId",
+                table: "users",
+                column: "RoleId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Admins");
-
             migrationBuilder.DropTable(
                 name: "Appointments");
 
@@ -206,16 +194,16 @@ namespace GestionHopital.Migrations
                 name: "OtherStaffs");
 
             migrationBuilder.DropTable(
-                name: "Patients");
-
-            migrationBuilder.DropTable(
                 name: "Doctors");
 
             migrationBuilder.DropTable(
-                name: "Logins");
+                name: "users");
 
             migrationBuilder.DropTable(
                 name: "Departments");
+
+            migrationBuilder.DropTable(
+                name: "roles");
         }
     }
 }

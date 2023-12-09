@@ -1,52 +1,76 @@
-﻿@model GestionHopital.Models.Patient
+﻿ @model GestionHopital.Models.User
 
 @{
-    ViewData["Title"] = "CreatePatient";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "CreateDepartment";
 }
 
-<h1>CreatePatient</h1>
+<div class="col-md-12">
+    <!-- general form elements -->
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title"> Create Patient</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form method="post" asp-action="CreatePatient" enctype="multipart/form-data">
+            <div>
+                <a asp-action="GetPatient">Back to List</a>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label asp-for="Name">Name</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Name" asp-for="Name">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email">Email</label>
+                    <input type="text" class="form-control" id="Email" placeholder="Email" asp-for="Email">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Phone">Phone</label>
+                    <input type="text" class="form-control" id="Phone" placeholder="Phone" asp-for="Phone">
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Address">Address</label>
+                    <input type="text" class="form-control" id="Address" placeholder="Address" asp-for="Address">
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="BirthDate" ></label>
+                    <input asp-for="BirthDate" class="form-control" />
+                    <span asp-validation-for="BirthDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="inputName" sp-for="Gender">Gender</label>
+                    <select name="Gender" class="form-control" asp-for="Gender">
+                        <option value="" disabled selected>Select one</option>
 
-<h4>Patient</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="CreatePatient">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password">Password</label>
+                    <input type="password" class="form-control" id="Password" placeholder="Password" asp-for="Password">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                
+
             </div>
-            <div class="form-group">
-                <label asp-for="Phone" class="control-label"></label>
-                <input asp-for="Phone" class="form-control" />
-                <span asp-validation-for="Phone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BirthDate" class="control-label"></label>
-                <input asp-for="BirthDate" class="form-control" />
-                <span asp-validation-for="BirthDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Gender" class="control-label"></label>
-                <input asp-for="Gender" class="form-control" />
-                <span asp-validation-for="Gender" class="text-danger"></span>
-            </div>
-           
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <!-- /.card-body -->
+
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>
     </div>
+    <!-- /.card -->
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
+
+ 

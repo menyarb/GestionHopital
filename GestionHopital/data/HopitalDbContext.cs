@@ -14,14 +14,13 @@ namespace GestionHopital.data
             base.OnModelCreating(modelBuilder); 
 
         }
-        public DbSet<Login> Logins { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<OtherStaff> OtherStaffs { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
 
-        public DbSet<Patient> Patients { get; set; }
-        public DbSet<Admin> Admins { get; set; }
-
+        public DbSet<User> users { get; set; }
+        public DbSet<Role> roles { get; set; }
+       
     }
 }

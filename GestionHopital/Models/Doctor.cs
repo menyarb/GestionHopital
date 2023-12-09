@@ -43,7 +43,7 @@
         [StringLength(50, ErrorMessage = "Qualification length can't be more than 50 characters.")]
         public string Qualification { get; set; }
 
-        [StringLength(50, ErrorMessage = "Specialization length can't be more than 50 characters.")]
+        [StringLength(20, ErrorMessage = "Specialization length can't be more than 20 characters.")]
         public string Specialization { get; set; }
 
         public int? Work_Experience { get; set; }

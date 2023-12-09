@@ -24,7 +24,7 @@ namespace GestionHopital.Controllers
         {
             // You may need to provide necessary data to populate dropdowns, etc.
             ViewBag.Doctors = _db.Doctors.ToList();
-            ViewBag.Patients = _db.Patients.ToList();
+            ViewBag.Patients = _db.users.ToList();
             return View();
         }
 
@@ -37,7 +37,7 @@ namespace GestionHopital.Controllers
             {
                 // Assuming you have appropriate Doctor and Patient entities in the database
                 Doctor doctor = _db.Doctors.Find(appointment.DoctorID);
-                Patient patient = _db.Patients.Find(appointment.PatientID);
+                User patient = _db.users.Find(appointment.PatientID);
 
                 if (doctor != null && patient != null)
                 {
@@ -54,7 +54,7 @@ namespace GestionHopital.Controllers
 
             // If the model state is not valid, return to the form with validation errors
             ViewBag.Doctors = _db.Doctors.ToList();
-            ViewBag.Patients = _db.Patients.ToList();
+            ViewBag.Patients = _db.users.ToList();
             return View(appointment);
         }
     }
