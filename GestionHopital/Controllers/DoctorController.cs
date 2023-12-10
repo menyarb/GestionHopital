@@ -17,6 +17,12 @@ namespace GestionHopital.Controllers
         [HttpGet]
         public ActionResult CreateDoctor()
         {
+
+            //if (HttpContext.Session.GetString("UserName") == null)
+            //{
+            //    return RedirectToAction("Login");
+            //}
+          
             // Fetch the list of departments from the database
             var departments = _db.Departments.ToList();
 
@@ -72,14 +78,12 @@ namespace GestionHopital.Controllers
             doc.DeptNo = dep;
             // Add the 'Doctors' object to the database
 
-            doc.Address = doc.Address ?? "Default Address";  // Replace with the actual logic or default value
-                                                             // Set the 'Phone' property of the 'Doctors' object
-            doc.Phone = doc.Phone ?? "Default Phone";  // Replace with the actual logic or default value
-                                                       // Set the 'Qualification' property of the 'Doctors' object
+            doc.Address = doc.Address ?? "Default Address"; 
+            doc.Phone = doc.Phone ?? "Default Phone";  
             doc.Qualification = doc.Qualification ?? "Some default qualification";
 
             // Set the 'Specialization' property of the 'Doctors' object
-            doc.Specialization = doc.Specialization ?? "Some default specialization";  // Replace with the actual specialization from your form
+            doc.Specialization = doc.Specialization ?? "Some default specialization";  
             doc.BirthDate = DateTime.Parse(Request.Form["birthdate"]);
             _db.Doctors.Add(doc);
             _db.SaveChanges();

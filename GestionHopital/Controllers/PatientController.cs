@@ -25,22 +25,28 @@ namespace GestionHopital.Controllers
         // Liste des Patients
         public ActionResult GetPatient()
         {
-            var data = _db.users.Include(p=>p.role).ToList();
+            
+
+            var data = _db.users
+               .Where(u => u.RoleId == 1)
+               .Include(u => u.role)
+               .ToList();
+
             return View(data);
         }
 
 
-        [HttpGet]
-        public ActionResult CreatePatient()
-        {
-            return View();
-        }
+      
         [HttpGet]
         public ActionResult RegisterPatient()
         {
             return View();
         }
-
+        [HttpGet]
+        public ActionResult CreatePatient()
+        {
+            return View();
+        }
 
         [HttpPost]
         public ActionResult CreatePatient(User pat)

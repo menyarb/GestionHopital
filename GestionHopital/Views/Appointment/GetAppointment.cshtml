@@ -1,73 +1,73 @@
 ﻿@model IEnumerable<GestionHopital.Models.Appointment>
 
-<style>
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-    }
+@{
+    Layout = "~/Views/Shared/_LayoutSecretary.cshtml";
+    ViewData["Title"] = "Users";
+}
+<!-- /.card -->
+<div class="row">
+    <div class="col-12" style="margin: 10px;">
+        <a href="#" class="btn btn-secondary">Cancel</a>
+        <a asp-area="" asp-controller="Appointment" asp-action="CreateAppointment">
 
-    th, td {
-        padding: 10px;
-        border: 1px solid #ddd;
-        text-align: left;
-    }
+  
+        </a>
+    </div>
+</div>
 
-    th {
-        background-color: #3498db;
-        color: white;
-    }
+<!-- ... (previous HTML code) ... -->
 
-    tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Appointment</h3>
+    </div>
 
-    a {
-        color: #3498db;
-        text-decoration: none;
-    }
 
-        a:hover {
-            text-decoration: underline;
-        }
-</style>
+    <!-- /.card-header -->
 
-<table>
-    <thead>
-        <tr>
-            <th scope="col">Appointment ID</th>
-            <th scope="col">Doctor ID</th>
-            <th scope="col">Patient ID</th>
-            <th scope="col">Date</th>
-            <th scope="col">Status</th>
-            <th scope="col">Bill Amount</th>
-            <th scope="col">Bill Status</th>
-            <th scope="col">Disease</th>
-            <th scope="col">Progress</th>
-            <th scope="col">Prescription</th>
-            <th scope="col">Edit</th>
-            <th scope="col">Delete</th>
-            <th scope="col">Details</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var appointment in Model)
-        {
-            <tr>
-                <td>@appointment.AppointID</td>
-                <td>@appointment.DoctorID</td>
-                <td>@appointment.PatientID</td>
-                <td>@appointment.Date.ToString("dd/MM/yyyy")</td>
-                <td>@appointment.Appointment_Status</td>
-                <td>@appointment.Bill_Amount</td>
-                <td>@appointment.Bill_Status</td>
-                <td>@appointment.Disease</td>
-                <td>@appointment.Progress</td>
-                <td>@appointment.Prescription</td>
-                <td>@Html.ActionLink("Edit", "EditAppointment", new { id = appointment.AppointID })</td>
-                <td>@Html.ActionLink("Delete", "DeleteAppointment", new { id = appointment.AppointID })</td>
-                <td>@Html.ActionLink("Details", "DetailsAppointment", new { id = appointment.AppointID })</td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <div class="card-body">
+        <table id="PatientTable" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Appointment ID</th>
+                    <th scope="col">Department</th>
+                    <th scope="col">Doctor</th>
+
+                    <th scope="col">Date</th>
+                    <th scope="col">Disease</th>
+                    <th scope="col">Name Patient</th>
+                    <th scope="col">Email </th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Address </th>
+   
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var appointment in Model)
+                {
+                    <tr>
+                        <td>@appointment.AppointID</td>
+                        <td>@appointment.Doctor.Name</td>
+                        @* <td>@appointment.DoctorID</td> *@
+                       
+                        <td>@appointment.Date.ToString("dd/MM/yyyy")</td>
+                        <td>@appointment.Disease</td>
+                       <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                       
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <!-- Add footer if needed -->
+            </tfoot>
+        </table>
+    </div>
+
+    <!-- /.card-body -->
+</div>
+<!-- /.card -->
+
+

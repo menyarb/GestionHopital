@@ -20,11 +20,24 @@ namespace GestionHopital.Controllers
             var data = _db.Appointments.ToList();
             return View(data);
         }
+
+
+        public JsonResult GetDoctorsByDepId(int depId)
+        {
+
+            var doctors = _db.Doctors.Where(p=>p.DeptNo == depId).ToList();
+            return new JsonResult(doctors);
+        }
         public ActionResult CreateAppointment()
         {
             // You may need to provide necessary data to populate dropdowns, etc.
-            ViewBag.Doctors = _db.Doctors.ToList();
-            ViewBag.Patients = _db.users.ToList();
+            var departments = _db.Departments.ToList();
+
+            // Create a new instance of the Doctor model
+            
+            ViewData["departement"] = departments;
+           // ViewBag.Doctors = _db.Doctors.ToList();
+         //   ViewBag.Patients = _db.users.ToList();
             return View();
         }
 

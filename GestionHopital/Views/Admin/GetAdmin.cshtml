@@ -1,14 +1,14 @@
 ﻿@{
-    Layout = "~/Views/Shared/_LayoutSecretary.cshtml";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
     ViewData["Title"] = "Users";
 }
 <!-- /.card -->
 <div class="row">
     <div class="col-12" style="margin: 10px;">
         <a href="#" class="btn btn-secondary">Cancel</a>
-        <a asp-area="" asp-controller="Patient" asp-action="CreatePatient">
+        <a asp-area="" asp-controller="admin" asp-action="CreateAdmin">
 
-            <input type="submit" value="Create new Patient" class="btn btn-success float-right">
+            <input type="submit" value="Create new Admin" class="btn btn-success float-right">
         </a>
     </div>
 </div>
@@ -17,7 +17,7 @@
 
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">Patient</h3>
+        <h3 class="card-title">admin</h3>
     </div>
 
 
@@ -27,7 +27,7 @@
         <table id="PatientTable" class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th scope="col">Patient ID</th>
+                    <th scope="col">admin ID</th>
                     <th scope="col">Name</th>
                     <th scope="col">Phone</th>
                     <th scope="col">Address</th>
@@ -37,27 +37,29 @@
                     <th scope="col">Email</th>
                     <th scope="col">Password</th>
                     <th scope="col">Action</th>
-                   
+
 
                 </tr>
             </thead>
             <tbody>
-                @foreach (var patient in Model)
+                @foreach (var admin in Model)
                 {
                     <tr>
 
-                        <td>@patient.Id</td>
-                        <td>@patient.Name</td>
-                        <td>@patient.Phone</td>
-                        <td>@patient.Address</td>
-                        <td>@patient.BirthDate.ToString("dd/MM/yyyy")</td>
-                        <td>@patient.Gender</td>
-                        <td>@patient.role.RoleName</td>
-                        <td>@patient.Email</td>
-                        <td>@patient.Password</td>
-                        <td>@Html.ActionLink("Edit", "EditPatient", new { id = patient.Id })
-                        @Html.ActionLink("Delete", "DeletePatient", new { id = patient.Id })
-                        @Html.ActionLink("Details", "DetailsPatient", new { id = patient.Id })</td>
+                        <td>@admin.Id</td>
+                        <td>@admin.Name</td>
+                        <td>@admin.Phone</td>
+                        <td>@admin.Address</td>
+                        <td>@admin.BirthDate.ToString("dd/MM/yyyy")</td>
+                        <td>@admin.Gender</td>
+                        <td>@admin.role.RoleName</td>
+                        <td>@admin.Email</td>
+                        <td>@admin.Password</td>
+                        <td>
+                            @Html.ActionLink("Edit", "EditAdmin", new { id = admin.Id })
+                            @Html.ActionLink("Delete", "DeleteAdmin", new { id = admin.Id })
+                            @Html.ActionLink("Details", "DetailsAdmin", new { id = admin.Id })
+                        </td>
 
                     </tr>
                 }

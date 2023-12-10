@@ -1,18 +1,19 @@
 ﻿ @model GestionHopital.Models.User
 
 @{
-    Layout = "~/Views/Shared/_LayoutSecretary.cshtml";
-
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "CreateDepartment";
 }
+
 <div class="col-md-12">
     <!-- general form elements -->
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title"> Edit Patient</h3>
+            <h3 class="card-title"> Create Admin</h3>
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        <form asp-action="EditPatient" enctype="multipart/form-data">
+        <form method="post" asp-action="CreateAdmin" enctype="multipart/form-data">
             <div>
                 <a asp-action="GetPatient">Back to List</a>
             </div>
@@ -45,17 +46,16 @@
                 <div class="form-group">
                     <label for="inputName" sp-for="Gender">Gender</label>
                     <select name="Gender" class="form-control" asp-for="Gender">
-                        <option value="" disabled>Select one</option>
+                        <option value="" disabled selected>Select one</option>
 
                         <option value="M">Male</option>
                         <option value="F">Female</option>
 
                     </select>
                 </div>
-              
                 <div class="form-group">
-                    <label asp-for="Password"></label>
-                    <input asp-for="Password" class="form-control" />
+                    <label asp-for="Password">Password</label>
+                    <input type="password" class="form-control" id="Password" placeholder="Password" asp-for="Password">
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
 
@@ -73,5 +73,3 @@
 
 
 
-
- 
