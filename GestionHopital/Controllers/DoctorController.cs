@@ -17,6 +17,12 @@ namespace GestionHopital.Controllers
         [HttpGet]
         public ActionResult CreateDoctor()
         {
+
+            if (HttpContext.Session.GetString("UserName") == null)
+            {
+                return RedirectToAction("Login");
+            }
+          
             // Fetch the list of departments from the database
             var departments = _db.Departments.ToList();
 
