@@ -18,11 +18,15 @@ namespace GestionHopital.Controllers
         public ActionResult CreateDoctor()
         {
 
-            //if (HttpContext.Session.GetString("UserName") == null)
-            //{
-            //    return RedirectToAction("Login");
-            //}
-          
+            if (HttpContext.Session.GetString("UserName") == null)
+            {
+                return RedirectToAction("Login");
+            }
+            if (HttpContext.Session.GetString("Role") != "Admin")
+            {
+                return RedirectToAction("Index","Login");
+            }
+
             // Fetch the list of departments from the database
             var departments = _db.Departments.ToList();
 
@@ -96,6 +100,14 @@ namespace GestionHopital.Controllers
         // Liste des GetDepartment
         public ActionResult GetDoctor()
         {
+            if (HttpContext.Session.GetString("UserName") == null)
+            {
+                return RedirectToAction("Login");
+            }
+            if (HttpContext.Session.GetString("Role") != "Admin")
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var data = _db.Doctors.Include(p => p.Department).ToList();
             return View(data);
         }
@@ -104,6 +116,14 @@ namespace GestionHopital.Controllers
         [HttpGet]
         public ActionResult EditDoctor(int DoctorID)
         {
+            if (HttpContext.Session.GetString("UserName") == null)
+            {
+                return RedirectToAction("Login");
+            }
+            if (HttpContext.Session.GetString("Role") != "Admin")
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var DoctorObj = _db.Doctors.Find(DoctorID);
 
             // Fetch the list of departments from the database

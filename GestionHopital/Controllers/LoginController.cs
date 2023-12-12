@@ -34,17 +34,25 @@ namespace clinique.Controllers
         {
             if (HttpContext.Session.GetString("UserName") == null)
             {
-                var logindUser = _db.users.Where(p => p.Password == user.Password && p.Email == user.Email).FirstOrDefault();
+                var logindUser = _db.users.Include(p=>p.role).Where(p => p.Password == user.Password && p.Email == user.Email).FirstOrDefault();
                 if (logindUser == null)
                 {
                     return NotFound();
                 }
 
                 HttpContext.Session.SetString("UserName", logindUser.Name.ToString());
+                HttpContext.Session.SetString("Role", logindUser.role.RoleName.ToString());
                 HttpContext.Session.SetString("UserId", logindUser.Id.ToString());
-               
+                switch (logindUser.role.RoleName)
+                {
+                    case "Admin" :  return  RedirectToAction("dashboard", "Admin", new { area = "" });  
+                    case "Staff" :  return RedirectToAction("GetAppointment", "Appointment", new { area = "" }) ;
+                    case "Patient" : return   RedirectToAction("Index", "Home", new { area = "" });
+                    default: return RedirectToAction("Index", "Login", new { area = "" });
+                }
             }
-            return RedirectToAction("Doctor/CreateDoctor");
+            return RedirectToAction("Index", "Login", new { area = "" });
+
         }
     }
 }
